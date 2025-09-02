@@ -6,7 +6,7 @@
 1. Склонировать проект 'git clone https://github.com/Irenn7/Final_proj_Stakanova.git'
 2. Установить все зависимости
 3. Запустить тесты 'pytest'
-4. 
+
 ### Стек:
 - pytest
 - selenium
@@ -27,4 +27,5 @@
 
 ### Библиотеки:
 - pip install pytest
-- 
+- pip install selenium
+- pip install webdriver-manager
