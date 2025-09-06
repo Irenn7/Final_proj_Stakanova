@@ -50,7 +50,7 @@ coverage.xml
 *.cover
 *.py.cover
 .hypothesis/
-.pytest_cache/
+#.pytest_cache/
 cover/
 
 # Translations
@@ -440,7 +440,7 @@ pyrightconfig.json
 *testsdir
 *testsfile
 *testsfiles
-*test
+#*test
 *testdir
 *testfile
 *testfiles
