@@ -2,59 +2,42 @@ import pytest
 import requests
 from conf import base_url, HEADERS
 
-@pytest.fixture
-def session():
-    return requests.Session()
-
-def test_search_by_title(session): """Тест: поиск фильма по названию"""
-
-
-response = session.get("{BASE_URL}/search/movies?page=1&limit=10&query=%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80, headers=HEADERS")
-assert response.status_code == 200
-data = response.json()
-assert len(data["results"]) > 0
-for movie in data["results"]:
-    assert "Мастер и Маргарита" in movie["name"]
+def test_search_by_title():
+    """Тест: поиск фильма по названию"""
+    response = requests.get(f"{base_url}movie/search?page=1&limit=10&query=intouchables", headers=HEADERS)
+    assert response.status_code == 200
+    data = response.json()
+    assert data.get("docs", {})[0].get('name') == "1+1"
 
 
-def test_search_by_year(session):
+def test_search_by_year():
     """Тест: поиск фильмов по году выпуска"""
+    response = requests.get(f"{base_url}movie/search/movies?year=2021",headers=HEADERS)
+    assert response.status_code == 200
+    data = response.json()
+    assert data.get('year') == '2021'
 
 
-response = session.get("{BASE_URL}/search/movies?year=2021,headers=HEADERS")
-assert response.status_code == 200
-data = response.json()
-assert len(data["results"]) > 0
-for movie in data["results"]:
-    assert movie["year"] == 2021
-
-
-def test_search_by_rating(session):
+def test_search_by_rating():
     """Тест: поиск фильмов по рейтингу"""
+    response = requests.get(f"{base_url}movie/search/movies?rating.gte=8.5", headers=HEADERS)
+    assert response.status_code == 200
+    data = response.json()
+    movies = data['results']
+    for movie in movies:
+        assert float(movie["rating"]["kp"]) >= 8.5
 
 
-response = session.get("{BASE_URL}/search/movies?rating.gte=8.5, headers=HEADERS")
-assert response.status_code == 200
-data = response.json()
-assert len(data["results"]) > 0
-for movie in data["results"]:
-    assert float(movie["rating"]["kp"]) >= 8.5
-
-
-def test_negative_search_result(session):
+def test_negative_search_result():
     """Негативный тест: фильм с несуществующим названием"""
+    response = requests.get(f"{base_url}movie/search/movies?q=nonexistent_movie_345", headers=HEADERS)
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["results"]) == 0
 
 
-response = session.get("{BASE_URL}/search/movies?q=nonexistent_movie_12345, headers=HEADERS")
-assert response.status_code == 200
-data = response.json()
-assert len(data["results"]) == 0
-
-
-def test_unauthorized_request(session):
+def test_unauthorized_request():
     """Негативный тест: попытка сделать запрос без авторизации"""
-
-
-response = session.get("{BASE_URL}/search/movies?page=1&limit=10&query=Мастер, headers={}")
-assert (response.status_code == 401
+    response = requests.get(f"{base_url}movie/search/movies?page=1&limit=10&query=Мастер", headers=HEADERS)
+    assert (response.status_code == 401
         or response.status_code == 403)

@@ -1,6 +1,5 @@
-base_url = "https://api.kinopoisk.ru/"
-API_KEY = "S95X83Q-3VTM56K-JDZ3YYY-6E73M3Y"
+base_url = "https://api.kinopoisk.dev/v1.4/"
+API_KEY = "PKY3NPM-0SKMMSB-GA8JY0R-4YW7H15"
 HEADERS = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {API_KEY}"
+    "X-API-KEY": f"{API_KEY}"
 }
