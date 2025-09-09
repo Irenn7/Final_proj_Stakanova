@@ -6,6 +6,10 @@
 1. Склонировать проект 'git clone https://github.com/Irenn7/Final_proj_Stakanova.git'
 2. Установить все зависимости
 3. Запустить тесты 'pytest'
+4. Запустить АПИ тесты cd test pytest test_api_module.py
+5. Запустить UI тесты cd test pytest test_ui_module.py 
+6. Сгенерировать отчет 'allure generate allure-files -o allure-report' 
+7. Открыть отчет 'allure open allure-report'
 
 ### Стек:
 - pytest
