@@ -5,9 +5,10 @@
 ### Шаги:
 1. Склонировать проект 'git clone https://github.com/Irenn7/Final_proj_Stakanova.git'
 2. Установить все зависимости
-3. Запустить тесты 'pytest'
-4. Запустить АПИ тесты cd test pytest test_api_module.py
-5. Запустить UI тесты cd test pytest test_ui_module.py 
+3. Запустить все тесты с генерацией allure-данных
+pytest --alluredir=allure-results
+4. Запустить АПИ тесты pytest test/test_api_module.py --alluredir=allure-results
+5. Запустить UI тесты pytest test/test_ui_module.py --alluredir=allure-results
 6. Сгенерировать отчет 'allure generate allure-files -o allure-report' 
 7. Открыть отчет 'allure open allure-report'
 
@@ -23,7 +24,6 @@
 - ./test - тесты
 - ./pages - описание страниц
 - ./api - хелперы для работы с API
-- ./bd - хелперы для работы с BD
 
 ### Полезные ссылки:
 - [Подсказка по Markdown](https://www.markdownguide.org/cheat-sheet/)
@@ -35,4 +35,4 @@
 - pip install webdriver-manager
 - pip install requests
 - pip install allure-pytest
-- 
+- pip install -r requirements.txt
